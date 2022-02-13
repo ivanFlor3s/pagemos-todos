@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AgregarGilComponent } from './components/agregar-gil/agregar-gil.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GastosComponent } from './components/gastos/gastos.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     GilesTableComponent,
     HomeComponent,
     AboutUsComponent,
-    AgregarGilComponent
+    AgregarGilComponent,
+    GastosComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       preventDuplicates: true,
       progressBar: true
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxMaskModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
