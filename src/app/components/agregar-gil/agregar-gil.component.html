@@ -7,7 +7,7 @@
 
 <div class="row">
   <div class="col-sm-6 col-12">
-    <form [formGroup]="nombreForma" (ngSubmit)="submitAgregar">
+    <form [formGroup]="nombreForma" (ngSubmit)="(submitAgregar)">
       <div class="form-inline">
         <label class="mr-3" for="nombreInput">Nombre del gil:</label>
         <input
@@ -16,14 +16,36 @@
           formControlName="nombre"
           class="form-control form-control-sm mr-3"
         />
-        <button class="btn btn-success btn-sm m-1" (click)="submitAgregar()">+ Agregar</button>
+        <button class="btn btn-success btn-sm m-1" (click)="submitAgregar()">
+          + Agregar
+        </button>
       </div>
     </form>
   </div>
   <div class="col-sm-6 col-12">
     <ul class="list-group">
-      <li *ngIf="giles.length == 0" class="list-group-item">No hay nadie cargado</li>
-      <li *ngFor="let gil of giles" class="list-group-item">{{ gil }}</li>
+      <li *ngIf="giles.length == 0" class="list-group-item">
+        <span class="text-muted">No hay nadie cargado, intenta agregando giles</span>
+      </li>
+      <li *ngFor="let gil of giles" class="list-group-item">
+          <div class="row gil-item">
+              <div>
+                <i class="fa fa-user"></i> <span>
+                    {{ gil }}
+                </span> 
+              
+              </div>
+              <span class="text-muted" style="font-style: italic"> el mas gil </span>
+            <div>
+                <i class="fa fa-edit btn mr-3"></i>
+                <i class="fa fa-times text-danger btn"></i>
+            </div>
+           
+    
+          </div>
+      
+
+      </li>
     </ul>
   </div>
 </div>
