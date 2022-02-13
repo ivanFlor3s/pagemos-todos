@@ -1,0 +1,29 @@
+<h3>Agrega los giles</h3>
+<hr />
+<p>
+  Arma tu equipo pokemon de wachines, tene cuidado que no se te escape niguno de
+  estos que son rapidisimos.
+</p>
+
+<div class="row">
+  <div class="col-sm-6 col-12">
+    <form [formGroup]="nombreForma" (ngSubmit)="submitAgregar">
+      <div class="form-inline">
+        <label class="mr-3" for="nombreInput">Nombre del gil:</label>
+        <input
+          type="text"
+          id="nombreInput"
+          formControlName="nombre"
+          class="form-control form-control-sm mr-3"
+        />
+        <button class="btn btn-success btn-sm m-1" (click)="submitAgregar()">+ Agregar</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-sm-6 col-12">
+    <ul class="list-group">
+      <li *ngIf="giles.length == 0" class="list-group-item">No hay nadie cargado</li>
+      <li *ngFor="let gil of giles" class="list-group-item">{{ gil }}</li>
+    </ul>
+  </div>
+</div>

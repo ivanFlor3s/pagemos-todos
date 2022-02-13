@@ -7,18 +7,21 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { GilesTableComponent } from './components/giles-table/giles-table.component';
 import { HomeComponent } from './components/home/home.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { AgregarGilComponent } from './components/agregar-gil/agregar-gil.component';
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     GilesTableComponent,
     HomeComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    AgregarGilComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
