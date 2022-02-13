@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-//Model
+import { BehaviorSubject, Observable } from 'rxjs';
+//Models
 import { Gil } from '../model/gil';
 
 @Injectable({
@@ -7,7 +8,14 @@ import { Gil } from '../model/gil';
 })
 export class GilesListService {
 
-  gilesList: Gil[] = []
-
+  private currentGilesListSubject: BehaviorSubject<Gil[]> = new BehaviorSubject([] as Gil[]);
+  public readonly currentList: Observable<Gil[]> = this.currentGilesListSubject.asObservable();
   constructor() { }
+
+  AgregarGil(nombre: string){
+    const gil: Gil = new Gil(nombre)
+    this.currentGilesListSubject.next([...this.currentGilesListSubject.value, gil])
+  }
+ 
+
 }
