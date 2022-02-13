@@ -2,12 +2,12 @@
     <h3>Quien pago</h3>
     <hr />
     <p> Que no se te escape ningun 0 ni centavo, ahora que esta jodida la cosa y el bolsillo esta siendo brutalmente violado cuida tu platita y a exprimir cada centavo </p>
-    <form>
+    <form [formGroup]="gastoForma" (ngSubmit)="submitForm()">
       <div class="form-inline mb-3">
         <label class="mr-2" for="who">Este gil</label>
         <select type="text" id="who" class="form-control form-control-sm mr-3">
-          <option value="">Todos</option>
-          <option value="">El gil de maxi que no sabe sumar</option>
+          <option *ngIf="giles.length == 0" value="">Nadie para elegir</option>
+          <option *ngFor="let gil of giles" [ngValue]="gil">{{gil | titlecase}}</option>
         </select>
   
         <label class="mr-2" for="how-much">Cuanto</label>

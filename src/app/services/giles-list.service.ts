@@ -22,6 +22,17 @@ export class GilesListService {
     const listaSinGil = this.currentGilesListSubject.value.filter(x => x.nombre != nombre)
     this.currentGilesListSubject.next(listaSinGil)
   }
+
+  agregarleGastoA(nombre: string, cuanto: number, descripcion: string){
+    const listaModificada = this.currentGilesListSubject.value.map( x => {
+      if( x.nombre == nombre){
+        x.agregarGasto(cuanto, descripcion)
+      }
+      return x
+    })
+    console.log('first', this.currentGilesListSubject.value)
+    this.currentGilesListSubject.next(listaModificada)
+  }
  
 
 }

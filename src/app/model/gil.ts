@@ -12,5 +12,13 @@ export class Gil {
         this.deuda = 0
         this.aPagarle = 0
     }
+
+
+    agregarGasto(cuanto: number, descripcion: string){
+        const gasto: Gasto = {
+            cuanto, descripcion
+        }
+        this.gastos.push(gasto)
+    }
     
 }
