@@ -5,20 +5,29 @@ import { Subscription } from 'rxjs';
 import { Gil } from 'src/app/model/gil';
 import { GilesListService } from '../../services/giles-list.service';
 
+const MINCHARSNAME = 3
 @Component({
   selector: 'app-agregar-gil',
   templateUrl: './agregar-gil.component.html',
   styleUrls: ['./agregar-gil.component.css']
 })
+
+
+
 export class AgregarGilComponent implements OnInit {
 
   nombreForma: FormGroup
   giles: string[] = []
-
   gilesListSubscription: Subscription
+
+  minCaracteresNombre = MINCHARSNAME
 
   get NombreInput(){
     return this.nombreForma.get('nombre') as FormControl
+  }
+
+  get NombreInvalido(){
+    return this.NombreInput.invalid && this.NombreInput.dirty 
   }
 
   constructor(private fb: FormBuilder, 
@@ -42,24 +51,28 @@ export class AgregarGilComponent implements OnInit {
 
   iniciarFormulario() {
     this.nombreForma = this.fb.group({
-      nombre: ['', [Validators.required, Validators.minLength(2)]]
+      nombre: ['', [Validators.required, Validators.minLength(MINCHARSNAME)]]
     })
   }
 
   submitAgregar(){
-    console.log(this.nombreForma.value, this.giles)
+
+    if(!this.NombreInput.value) return; 
+    // console.log(this.nombreForma.value, this.giles)
+
     if(this.giles.map(x => x.toUpperCase().trim()).includes(this.NombreInput.value.toUpperCase().trim())){
-      console.log('se repite')
       this.toastrService.error(`${this.NombreInput.value} ya esta agregado fiera`,'Media pila!!')
-      this.NombreInput.setValue('')
+      this.nombreForma.reset()
       return;
     }
 
     if(this.nombreForma.valid){
       // this.giles.push(this.NombreInput.value)
       this.gilesService.AgregarGil(this.NombreInput.value)
-      this.NombreInput.setValue('')
+      this.nombreForma.reset()
     }
+
+    
   }
 
   quitarGil(gil: string){

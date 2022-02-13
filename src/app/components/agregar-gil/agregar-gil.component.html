@@ -15,11 +15,20 @@
           id="nombreInput"
           formControlName="nombre"
           class="form-control form-control-sm mr-3"
+          [class.is-invalid]="NombreInvalido"
         />
+        
         <button class="btn btn-success btn-sm m-1" (click)="submitAgregar()">
           + Agregar
         </button>
       </div>
+      <div *ngIf="NombreInvalido" class="text-danger">
+          <span> No seas bobi, recorda que el nombre debe</span>
+        <ul>
+            <li>Tener al menos {{minCaracteresNombre}}</li>
+            <li>Es un campo obligatorio</li>
+        </ul>
+        </div>
     </form>
   </div>
   <div class="col-sm-6 col-12">
@@ -31,7 +40,7 @@
           <div class="row gil-item">
               <div>
                 <i class="fa fa-user"></i> <span>
-                    {{ gil }}
+                    {{ gil | titlecase }}
                 </span> 
               
               </div>
