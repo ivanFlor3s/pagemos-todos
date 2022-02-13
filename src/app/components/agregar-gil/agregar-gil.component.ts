@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Gil } from 'src/app/model/gil';
 import { GilesListService } from '../../services/giles-list.service';
 
 @Component({
@@ -51,8 +52,9 @@ export class AgregarGilComponent implements OnInit {
     }
   }
 
-  quitarGil(){
-
+  quitarGil(gil: string){
+    // console.log('saco a este', gil)
+    this.gilesService.QuitarGil(gil)
   }
 
 

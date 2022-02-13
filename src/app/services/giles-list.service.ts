@@ -16,6 +16,12 @@ export class GilesListService {
     const gil: Gil = new Gil(nombre)
     this.currentGilesListSubject.next([...this.currentGilesListSubject.value, gil])
   }
+
+  QuitarGil(nombre: string){
+    // console.log('quito a este ', nombre)
+    const listaSinGil = this.currentGilesListSubject.value.filter(x => x.nombre != nombre)
+    this.currentGilesListSubject.next(listaSinGil)
+  }
  
 
 }
