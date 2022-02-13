@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Gil } from 'src/app/model/gil';
 import { GilesListService } from '../../services/giles-list.service';
@@ -20,7 +21,9 @@ export class AgregarGilComponent implements OnInit {
     return this.nombreForma.get('nombre') as FormControl
   }
 
-  constructor(private fb: FormBuilder, private gilesService: GilesListService) { 
+  constructor(private fb: FormBuilder, 
+    private gilesService: GilesListService, 
+    private toastrService: ToastrService) { 
     this.iniciarFormulario()
     this.escucharListaGiles()
   }
@@ -44,7 +47,14 @@ export class AgregarGilComponent implements OnInit {
   }
 
   submitAgregar(){
-    console.log(this.nombreForma)
+    console.log(this.nombreForma.value, this.giles)
+    if(this.giles.map(x => x.toUpperCase().trim()).includes(this.NombreInput.value.toUpperCase().trim())){
+      console.log('se repite')
+      this.toastrService.error(`${this.NombreInput.value} ya esta agregado fiera`,'Media pila!!')
+      this.NombreInput.setValue('')
+      return;
+    }
+
     if(this.nombreForma.valid){
       // this.giles.push(this.NombreInput.value)
       this.gilesService.AgregarGil(this.NombreInput.value)
@@ -56,6 +66,8 @@ export class AgregarGilComponent implements OnInit {
     // console.log('saco a este', gil)
     this.gilesService.QuitarGil(gil)
   }
+
+  
 
 
 }

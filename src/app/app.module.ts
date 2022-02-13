@@ -10,6 +10,7 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AgregarGilComponent } from './components/agregar-gil/agregar-gil.component';
 import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,13 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    ToastrModule
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+      progressBar: true
+    }),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
