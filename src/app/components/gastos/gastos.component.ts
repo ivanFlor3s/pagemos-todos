@@ -12,6 +12,14 @@ export class GastosComponent implements OnInit {
 
   giles: string[] = []
 
+  get PersonaInputInvalido(){
+    return this.gastoForma.get('persona').invalid && this.gastoForma.get('persona').dirty 
+  }
+
+  get CuantoInputInvalido(){
+    return this.gastoForma.get('cuanto').invalid && this.gastoForma.get('cuanto').dirty 
+  }
+
   constructor(private fb: FormBuilder, private gilesService: GilesListService) {
     this.iniciarFormulario();
     this.escucharGilesIntegrantes()

@@ -5,26 +5,40 @@
     <form [formGroup]="gastoForma" (ngSubmit)="submitForm()">
       <div class="form-inline mb-3">
         <label class="mr-2" for="who">Este gil</label>
-        <select type="text" id="who" class="form-control form-control-sm mr-3">
+        <select type="text" id="who" class="form-control form-control-sm mr-3"
+        formControlName="persona"
+        [class.is-invalid]="PersonaInputInvalido"
+        >
           <option *ngIf="giles.length == 0" value="">Nadie para elegir</option>
           <option *ngFor="let gil of giles" [ngValue]="gil">{{gil | titlecase}}</option>
         </select>
   
         <label class="mr-2" for="how-much">Cuanto</label>
         <input
+        formControlName="cuanto"
           type="tel"
           id="how-much"
           class="form-control form-control-sm mr-3"
           min="0"
           mask="0*.00"
           prefix="$"
+        [class.is-invalid]="CuantoInputInvalido"
+
         />
   
         <label class="mr-2" for="desc">Descripcion</label>
         <input type="text" id="desc" class="form-control form-control-sm mr-3" placeholder="Es opcional" />
   
       </div>
-      <button class="btn btn-primary btn-sm">Agregar gasto</button>
+      <div class="text-danger" *ngIf="CuantoInputInvalido || PersonaInputInvalido">
+        <p>No seas bobi y presta antencion</p>
+        <ul>
+            <li *ngIf="CuantoInputInvalido"> El campo de cuanto es obligatorio y debe ser mayor a 0 </li>
+            <li *ngIf="PersonaInputInvalido"> Tenes que elegir a uno de los giles  </li>
+        </ul>
+
+      </div>
+      <button type="submit" class="btn btn-primary btn-sm">Agregar gasto</button>
   
     </form>
 </div>
