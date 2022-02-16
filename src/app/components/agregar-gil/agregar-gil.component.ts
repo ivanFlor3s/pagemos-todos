@@ -82,7 +82,7 @@ export class AgregarGilComponent implements OnInit {
   }
 
   editar(gil:string){
-    this.toastrService.error('tocate el culo','Todavia no hace nada')
+    this.toastrService.error(' Por que no te tocas el culo?','Eh!! Eso todavia no hace nada')
   }
 
 
