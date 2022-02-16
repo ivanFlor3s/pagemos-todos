@@ -78,6 +78,7 @@ export class AgregarGilComponent implements OnInit {
   quitarGil(gil: string){
     // console.log('saco a este', gil)
     this.gilesService.QuitarGil(gil)
+    this.toastrService.success(`A tu puta casa ${gil}`,'A casaaaa!!!!')
   }
 
   editar(gil:string){
