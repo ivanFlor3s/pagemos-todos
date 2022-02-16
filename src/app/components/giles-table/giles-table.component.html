@@ -1,1 +1,27 @@
-<p>giles-table works!</p>
+<div class="row" *ngIf="gastos.length > 0">
+    <div class="col-sm-6">
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Humano</th>
+                <th scope="col">Gasto</th>
+                <th scope="col">En...</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let gasto of gastos; let i = index">
+                <th scope="row">{{i + 1}}</th>
+                <td> {{ gasto.nombre }} </td>
+                <td> {{ gasto.cuanto }} </td>
+                <td> {{ gasto.descripcion }} </td>
+              </tr>
+              
+            </tbody>
+          </table>
+    </div>
+</div>
+
+<div class="m-4">
+    <pre> {{ gilesList| json}} </pre>
+</div>

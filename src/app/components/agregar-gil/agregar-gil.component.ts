@@ -80,7 +80,9 @@ export class AgregarGilComponent implements OnInit {
     this.gilesService.QuitarGil(gil)
   }
 
-  
+  editar(gil:string){
+    this.toastrService.error('tocate el culo','Todavia no hace nada')
+  }
 
 
 }
