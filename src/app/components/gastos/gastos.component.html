@@ -9,11 +9,11 @@
         formControlName="persona"
         [class.is-invalid]="PersonaInputInvalido"
         >
-          <option *ngIf="giles.length == 0" value="">Nadie para elegir</option>
+          <option value="">Nadie</option>
           <option *ngFor="let gil of giles" [ngValue]="gil">{{gil | titlecase}}</option>
         </select>
   
-        <label class="mr-2" for="how-much">Cuanto</label>
+        <label class="mr-2" for="how-much">Gastó</label>
         <input
         formControlName="cuanto"
           type="tel"
@@ -26,15 +26,15 @@
 
         />
   
-        <label class="mr-2" for="desc">Descripcion</label>
-        <input type="text" id="desc" class="form-control form-control-sm mr-3" placeholder="Es opcional" />
+        <label class="mr-2" for="desc">En</label>
+        <input type="text" formControlName="descripcion" id="desc" class="form-control form-control-sm mr-3" placeholder="Que te importa?" />
   
       </div>
       <div class="text-danger" *ngIf="CuantoInputInvalido || PersonaInputInvalido">
         <p>No seas bobi y presta antencion</p>
         <ul>
-            <li *ngIf="CuantoInputInvalido"> El campo de cuanto es obligatorio y debe ser mayor a 0 </li>
-            <li *ngIf="PersonaInputInvalido"> Tenes que elegir a uno de los giles  </li>
+            <li *ngIf="CuantoInputInvalido"> Nada es gratis pa!</li>
+            <li *ngIf="PersonaInputInvalido"> Alguien tiene que pagar gracioso!  </li>
         </ul>
 
       </div>
