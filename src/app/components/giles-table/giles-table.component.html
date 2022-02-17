@@ -13,12 +13,20 @@
               <tr *ngFor="let gasto of gastos; let i = index">
                 <th scope="row">{{i + 1}}</th>
                 <td> {{ gasto.nombre }} </td>
-                <td> {{ gasto.cuanto }} </td>
+                <td> {{ gasto.cuanto | currency }} </td>
                 <td> {{ gasto.descripcion }} </td>
               </tr>
               
             </tbody>
           </table>
+    </div>
+    <div class="col-sm-6">
+      <h3>Cuanto pagaron</h3>
+      <ul>
+        <li *ngFor="let item of totalesList">{{ item.nombre }} pagó {{ item.cuanto | currency }}</li>
+      </ul>
+      <h3 > <span class="badge badge-primary">Total {{  totalGasto | currency}}</span></h3>
+
     </div>
 </div>
 

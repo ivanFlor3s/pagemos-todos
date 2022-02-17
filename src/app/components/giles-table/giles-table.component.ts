@@ -16,6 +16,10 @@ export class GilesTableComponent implements OnInit {
   gilesSub: Subscription
   gilesList: Gil[] = []
   gastos: GastoItem[] = []
+  totalGasto: number = 0
+
+  totalesList: { nombre: string, cuanto: number }[] = []
+
   constructor(public gilesService: GilesListService) {
     this.escucharGiles()
    }
@@ -41,8 +45,21 @@ export class GilesTableComponent implements OnInit {
         })
 
         this.gastos = list
-
+        this.calcularPagarles(gilesList)
       }
+    })
+  }
+
+  calcularPagarles(gilesList: Gil[]){
+    this.totalGasto = 0
+    this.totalesList = []
+    gilesList.forEach( gil => {
+      const item = {
+        nombre: gil.nombre,
+        cuanto: gil.gastos.map( x => x.cuanto).reduce( (a,b)=> a + b, 0)
+      }
+      this.totalesList.push(item)
+      this.totalGasto += item.cuanto
     })
   }
 

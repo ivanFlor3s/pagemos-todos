@@ -4,13 +4,11 @@ export class Gil {
     nombre: string
     gastos: Gasto[]
     deuda: number
-    aPagarle: number
-
+    
     constructor(name:string){
         this.nombre = name
         this.gastos = []
         this.deuda = 0
-        this.aPagarle = 0
     }
 
 

@@ -27,7 +27,7 @@ export class GilesListService {
     const listaModificada = this.currentGilesListSubject.value.map( x => {
       if( x.nombre == nombre){
         x.agregarGasto(cuanto, descripcion)
-      }
+      } 
       return x
     })
     console.log('first', this.currentGilesListSubject.value)

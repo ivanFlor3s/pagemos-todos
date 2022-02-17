@@ -55,7 +55,9 @@ export class GastosComponent implements OnInit {
 
     if(this.gastoForma.invalid) return;
     const {persona, cuanto, descripcion} = this.gastoForma.value
-    this.gilesService.agregarleGastoA(persona,cuanto,descripcion)
+    this.gilesService.agregarleGastoA(persona,Number(cuanto),descripcion)
     this.toastrService.info('Abrazo grando ' + persona ,'Le va a pagar Magosha!')
+
+    this.gastoForma.reset()
   }
 }
