@@ -56,7 +56,7 @@ export class AgregarGilComponent implements OnInit {
   }
 
   submitAgregar(){
-
+    this.NombreInput.markAsDirty()
     if(!this.NombreInput.value) return; 
     // console.log(this.nombreForma.value, this.giles)
 
