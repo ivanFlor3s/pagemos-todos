@@ -1,35 +1,75 @@
 <div class="row" *ngIf="gastos.length > 0">
-    <div class="col-sm-6">
-        <table class="table">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Humano</th>
-                <th scope="col">Gasto</th>
-                <th scope="col">En...</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let gasto of gastos; let i = index">
-                <th scope="row">{{i + 1}}</th>
-                <td> {{ gasto.nombre }} </td>
-                <td> {{ gasto.cuanto | currency }} </td>
-                <td> {{ gasto.descripcion }} </td>
-              </tr>
-              
-            </tbody>
-          </table>
-    </div>
-    <div class="col-sm-6">
-      <h3>Cuanto pagaron</h3>
-      <ul>
-        <li *ngFor="let item of totalesList">{{ item.nombre }} pagó {{ item.cuanto | currency }}</li>
-      </ul>
-      <h3 > <span class="badge badge-primary">Total {{  totalGasto | currency}}</span></h3>
+  <div class="col-sm-6">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Humano</th>
+          <th scope="col">Gasto</th>
+          <th scope="col">En...</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let gasto of gastos; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ gasto.nombre }}</td>
+          <td>{{ gasto.cuanto | currency }}</td>
+          <td>{{ gasto.descripcion }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-sm-6">
+    <h3>Cuanto pagaron</h3>
+    <ul>
+      <li *ngFor="let item of totalesList">
+        {{ item.nombre }} pagó {{ item.cuanto | currency }}
+      </li>
+    </ul>
+    <h3>
+      <span class="badge badge-primary">Total {{ totalGasto | currency }}</span>
+    </h3>
 
-    </div>
+    <h4>
+      <span class="badge badge-secondary">
+        Dividido entre {{ totalesList.length }} =
+        {{ totalGasto / totalesList.length | currency }}
+      </span>
+    
+    </h4>
+
+    <h3>Queda asi la cosa</h3>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let item of totalesList">
+        <div class="row" style="justify-content: space-between;">
+          <div>
+            
+            {{ item.nombre }}
+          </div>
+          <div class="badge" [ngClass]="{
+            ' badge-success': item.cuanto - totalGasto / totalesList.length > 0,
+            ' badge-danger': item.cuanto - totalGasto / totalesList.length < 0
+          }">
+            <i class="fa" [ngClass]="{
+              ' fa-arrow-up': item.cuanto - totalGasto / totalesList.length > 0,
+              ' fa-arrow-down': item.cuanto - totalGasto / totalesList.length < 0
+            }" >
+    
+            </i>
+            <span>
+              {{ item.cuanto - totalGasto / totalesList.length | currency }}
+            </span>
+          </div>
+          <!-- <div>
+            <small class="text-muted">
+              {{  item.cuanto - totalGasto / totalesList.length > 0 ? 'Se puso la 10' : 'Se me cayo un idolo' }}
+            </small>
+          </div> -->
+          
+        </div>
+        
+      </li>
+    </ul>
+  </div>
 </div>
 
-<div class="m-4">
-    <pre> {{ gilesList| json}} </pre>
-</div>
