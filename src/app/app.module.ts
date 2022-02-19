@@ -13,6 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GastosComponent } from './components/gastos/gastos.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { PagaGilAppComponent } from './components/paga-gil-app/paga-gil-app.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NgxMaskModule } from 'ngx-mask';
     HomeComponent,
     AboutUsComponent,
     AgregarGilComponent,
-    GastosComponent
+    GastosComponent,
+    PagaGilAppComponent
   ],
   imports: [
     BrowserModule,
