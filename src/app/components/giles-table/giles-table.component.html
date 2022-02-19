@@ -23,7 +23,7 @@
     <h3>Cuanto pagaron</h3>
     <ul>
       <li *ngFor="let item of totalesList">
-        {{ item.nombre }} pagó {{ item.cuanto | currency }}
+        {{ item.nombre | titlecase }} pagó {{ item.cuanto | currency }}
       </li>
     </ul>
     <h3>
