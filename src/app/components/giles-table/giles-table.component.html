@@ -12,7 +12,7 @@
       <tbody>
         <tr *ngFor="let gasto of gastos; let i = index">
           <th scope="row">{{ i + 1 }}</th>
-          <td>{{ gasto.nombre }}</td>
+          <td>{{ gasto.nombre | titlecase}}</td>
           <td>{{ gasto.cuanto | currency }}</td>
           <td>{{ gasto.descripcion }}</td>
         </tr>
@@ -44,7 +44,7 @@
         <div class="row" style="justify-content: space-between;">
           <div>
             
-            {{ item.nombre }}
+            {{ item.nombre | titlecase}}
           </div>
           <div class="badge" [ngClass]="{
             ' badge-success': item.cuanto - totalGasto / totalesList.length > 0,

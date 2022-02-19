@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Gasto } from '../model/gasto';
 //Models
 import { Gil } from '../model/gil';
 
+const GILESKEY = 'giles'
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +12,10 @@ export class GilesListService {
 
   private currentGilesListSubject: BehaviorSubject<Gil[]> = new BehaviorSubject([] as Gil[]);
   public readonly currentList: Observable<Gil[]> = this.currentGilesListSubject.asObservable();
-  constructor() { }
+  constructor() {
+    this.getDataFormStorage()
+    this.escucharGuardarCambios()
+   }
 
   AgregarGil(nombre: string){
     const gil: Gil = new Gil(nombre)
@@ -24,15 +29,38 @@ export class GilesListService {
   }
 
   agregarleGastoA(nombre: string, cuanto: number, descripcion: string){
+    const gasto: Gasto = {
+      cuanto, descripcion
+    }
     const listaModificada = this.currentGilesListSubject.value.map( x => {
       if( x.nombre == nombre){
-        x.agregarGasto(cuanto, descripcion)
+        // x.agregarGasto(cuanto, descripcion)
+        x.gastos.push(gasto)
       } 
+    
       return x
     })
     console.log('first', this.currentGilesListSubject.value)
     this.currentGilesListSubject.next(listaModificada)
   }
- 
+
+
+  escucharGuardarCambios(){
+    this.currentGilesListSubject.subscribe( res => {
+      localStorage.setItem(GILESKEY, JSON.stringify(res))
+    })
+  }
+
+  getDataFormStorage(){
+    const data = localStorage.getItem(GILESKEY)
+    if(data){
+      console.log(JSON.parse(data) as Gil[])
+      this.currentGilesListSubject.next(JSON.parse(data) as Gil[])
+    }
+  }
+
+  
+
+
 
 }
