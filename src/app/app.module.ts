@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GastosComponent } from './components/gastos/gastos.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { PagaGilAppComponent } from './components/paga-gil-app/paga-gil-app.component';
+import { FooterComponent } from './shared/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PagaGilAppComponent } from './components/paga-gil-app/paga-gil-app.comp
     AboutUsComponent,
     AgregarGilComponent,
     GastosComponent,
-    PagaGilAppComponent
+    PagaGilAppComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
