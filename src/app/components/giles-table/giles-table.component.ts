@@ -20,12 +20,18 @@ export class GilesTableComponent implements OnInit {
 
   totalesList: { nombre: string, cuanto: number }[] = []
 
+  get GastoDividido(){
+    return this.totalGasto / this.totalesList.length
+  }
+
   constructor(public gilesService: GilesListService) {
     this.escucharGiles()
    }
 
   ngOnInit(): void {
   }
+
+
 
   escucharGiles(){
     this.gilesSub = this.gilesService.currentList.subscribe( gilesList => {
@@ -61,6 +67,10 @@ export class GilesTableComponent implements OnInit {
       this.totalesList.push(item)
       this.totalGasto += item.cuanto
     })
+  }
+
+  balance(item:any){
+    return item.cuanto - this.totalGasto / this.totalesList.length
   }
 
 

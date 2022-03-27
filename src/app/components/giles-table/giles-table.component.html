@@ -33,7 +33,7 @@
     <h4>
       <span class="badge badge-secondary">
         Dividido entre {{ totalesList.length }} =
-        {{ totalGasto / totalesList.length | currency }}
+        {{ GastoDividido | currency }}
       </span>
     
     </h4>
@@ -47,17 +47,17 @@
             {{ item.nombre | titlecase}}
           </div>
           <div class="badge" [ngClass]="{
-            ' badge-success': item.cuanto - totalGasto / totalesList.length > 0,
-            ' badge-danger': item.cuanto - totalGasto / totalesList.length < 0
+            ' badge-success': balance(item) >= 0,
+            ' badge-danger': balance(item) < 0
           }">
             <i class="fa" [ngClass]="{
-              ' fa-arrow-up': item.cuanto - totalGasto / totalesList.length > 0,
-              ' fa-arrow-down': item.cuanto - totalGasto / totalesList.length < 0
+              ' fa-arrow-up': balance(item) >= 0,
+              ' fa-arrow-down': balance(item) < 0
             }" >
     
             </i>
             <span>
-              {{ item.cuanto - totalGasto / totalesList.length | currency }}
+              {{ balance(item) | currency }}
             </span>
           </div>
          
