@@ -76,16 +76,32 @@ export class AgregarGilComponent implements OnInit {
     
   }
 
-  quitarGil(gil: string){
-    // console.log('saco a este', gil)
-    this.gilesService.QuitarGil(gil)
-    this.toastrService.success(`A tu puta casa ${gil}`,'A casaaaa!!!!')
+  async quitarGil(gil: string){
+    // confirmar quitar usuario
+
+    const response = await this.pedirConfirmacion(gil)
+    if(response.isConfirmed) {
+      this.gilesService.QuitarGil(gil)
+  
+      this.toastrService.success(`A tu puta casa ${gil}`,'A casaaaa!!!!')
+    }
+
+  }
+
+  pedirConfirmacion(gil: string) {
+    return Swal.fire({
+      title: 'Esta seguro de quitar a ' + gil,
+      text:`Recorda que se van a perder todos los gastos de ${gil}`,
+      confirmButtonText: 'Confirmar',
+      cancelButtonText:'Cancelar',
+      showCancelButton: true
+    })
   }
 
   async editar(gil:string){
     const respuesta = await this.preguntarPorCambio()
-    console.log('nuevo nombre', respuesta.value)
-    if (gil == respuesta.value) return;
+    // console.log('nuevo nombre', respuesta.value)
+    if (gil == respuesta.value || !respuesta.value) return;
 
     this.gilesService.cambiarNombre(gil, respuesta.value)
     // this.toastrService.error(' Por que no te tocas el culo?','Eh!! Eso todavia no hace nada')
