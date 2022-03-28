@@ -20,6 +20,11 @@ export class GastosComponent implements OnInit {
   get CuantoInputInvalido(){
     return this.gastoForma.get('cuanto').invalid && this.gastoForma.get('cuanto').dirty 
   }
+  get CuantoNotEnough(){
+    console.log(this.gastoForma.get('cuanto').errors)
+    return !!this.gastoForma.get('cuanto').errors['min']
+   
+  }
 
   constructor(private fb: FormBuilder, private gilesService: GilesListService,
     private toastrService: ToastrService) {
@@ -31,8 +36,8 @@ export class GastosComponent implements OnInit {
   iniciarFormulario() {
     this.gastoForma = this.fb.group({
       persona: ['', [Validators.required]],
-      cuanto: ['', [Validators.required]],
-      descripcion: ['Penes de madera'],
+      cuanto: ['', [Validators.required, Validators.min(5)]],
+      descripcion: [''],
     });
   }
 
