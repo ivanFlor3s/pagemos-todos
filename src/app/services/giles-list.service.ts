@@ -44,6 +44,18 @@ export class GilesListService {
     this.currentGilesListSubject.next(listaModificada)
   }
 
+  cambiarNombre(quien:string, nuevoNombre: string){
+    const listaModificada = this.currentGilesListSubject.value.map( x => {
+      if (x.nombre == quien ) {
+        const clone = x
+        clone.nombre = nuevoNombre
+        return clone
+      }else return x
+    })
+    this.currentGilesListSubject.next(listaModificada)
+
+  }
+
 
   escucharGuardarCambios(){
     this.currentGilesListSubject.subscribe( res => {

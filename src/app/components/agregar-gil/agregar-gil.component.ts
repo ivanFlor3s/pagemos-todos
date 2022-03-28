@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Gil } from 'src/app/model/gil';
 import { GilesListService } from '../../services/giles-list.service';
+import Swal from 'sweetalert2';
 
 const MINCHARSNAME = 3
 @Component({
@@ -81,9 +82,27 @@ export class AgregarGilComponent implements OnInit {
     this.toastrService.success(`A tu puta casa ${gil}`,'A casaaaa!!!!')
   }
 
-  editar(gil:string){
-    this.toastrService.error(' Por que no te tocas el culo?','Eh!! Eso todavia no hace nada')
+  async editar(gil:string){
+    const respuesta = await this.preguntarPorCambio()
+    console.log('nuevo nombre', respuesta.value)
+    if (gil == respuesta.value) return;
+
+    this.gilesService.cambiarNombre(gil, respuesta.value)
+    // this.toastrService.error(' Por que no te tocas el culo?','Eh!! Eso todavia no hace nada')
   }
 
+  preguntarPorCambio(){
+    return Swal.fire({
+      title: 'Que nombre deberia tener?',
+      input:'text',
+      showCancelButton: true,
+      confirmButtonText: 'Cambiar nombre',
+      inputValidator: (value) => {
+        if (value.length < 3) {
+          return 'El nombre debe tener al menos 3 letras'
+        }
+      }
+    })
+  }
 
 }
