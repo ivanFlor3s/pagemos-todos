@@ -12,3 +12,8 @@
     object-fit: contain;
     border-radius: 10px;
 }
+
+.mail-info-right{
+    display: flex;
+    justify-content: flex-end;
+}
