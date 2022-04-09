@@ -23,8 +23,9 @@ export class GilesListService {
   }
 
   QuitarGil(nombre: string){
-    // console.log('quito a este ', nombre)
+    console.log('quito a este ', nombre)
     const listaSinGil = this.currentGilesListSubject.value.filter(x => x.nombre != nombre)
+    console.log('despues de quitar',listaSinGil)
     this.currentGilesListSubject.next(listaSinGil)
   }
 
@@ -40,7 +41,7 @@ export class GilesListService {
     
       return x
     })
-    console.log('first', this.currentGilesListSubject.value)
+    // console.log('first', this.currentGilesListSubject.value)
     this.currentGilesListSubject.next(listaModificada)
   }
 

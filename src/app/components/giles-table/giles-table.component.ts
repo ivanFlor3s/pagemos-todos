@@ -36,7 +36,7 @@ export class GilesTableComponent implements OnInit {
   escucharGiles(){
     this.gilesSub = this.gilesService.currentList.subscribe( gilesList => {
       this.gilesList = gilesList
-      if(gilesList.length > 0){
+      if(gilesList.length >= 0){
         let list: GastoItem[] = []
         
         gilesList.forEach( gil => {
