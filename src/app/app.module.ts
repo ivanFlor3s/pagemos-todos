@@ -16,6 +16,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { PagaGilAppComponent } from './components/paga-gil-app/paga-gil-app.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NeutrarPipe } from './pipes/neutrar.pipe';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 @NgModule({
   declarations: [
@@ -28,22 +29,28 @@ import { NeutrarPipe } from './pipes/neutrar.pipe';
     GastosComponent,
     PagaGilAppComponent,
     FooterComponent,
-    NeutrarPipe
+    NeutrarPipe,
   ],
   imports: [
     BrowserModule,
+    UiSwitchModule
+    .forRoot({
+      size: 'small',
+      checkedLabel: 'On',
+      uncheckedLabel: 'Off',
+    }),
     AppRoutingModule,
     ReactiveFormsModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
-      progressBar: true
+      progressBar: true,
     }),
     BrowserAnimationsModule,
     NgxMaskModule.forRoot(),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
