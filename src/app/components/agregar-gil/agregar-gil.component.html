@@ -1,15 +1,15 @@
-<h3>Agrega los giles</h3>
+<h3> 🧑‍🤝‍🧑 {{'Agrega los giles'|neutrar:'app':'title'}}</h3>
 <hr />
 <p>
-  Arma tu equipo pokemon de wachines, tene cuidado que no se te escape niguno de
-  estos que son rapidisimos.
+ {{' Arma tu equipo pokemon de wachines, tene cuidado que no se te escape niguno de
+  estos que son rapidisimos.' | neutrar:'app':'agregarDesc'}}
 </p>
 
 <div class="row">
   <div class="col-sm-6 col-12">
     <form [formGroup]="nombreForma" (ngSubmit)="(submitAgregar)">
       <div class="form-inline">
-        <label class="mr-3" for="nombreInput">Nombre del gil:</label>
+        <label class="mr-3" for="nombreInput">{{'Nombre del gil'|neutrar:'app':'labelNombre'}}:</label>
         <input
           type="text"
           id="nombreInput"
@@ -24,7 +24,7 @@
         </button>
       </div>
       <div *ngIf="NombreInvalido" class="text-danger">
-          <span> No seas bobi, recorda que el nombre debe</span>
+          <span> {{'No seas bobi, recorda que el nombre debe'|neutrar:'app':'errorNombreForm'}}</span>
         <ul>
             <li>Tener al menos {{minCaracteresNombre}}</li>
             <li>Es un campo obligatorio</li>
@@ -35,7 +35,7 @@
   <div class="col-sm-6 col-12">
     <ul class="list-group">
       <li *ngIf="giles.length == 0" class="list-group-item">
-        <span class="text-muted">No hay nadie cargado, intenta agregando giles</span>
+        <span class="text-muted">No hay nadie cargado{{', intenta agregando giles'|neutrar}}</span>
       </li>
       <li *ngFor="let gil of giles" class="list-group-item">
           <div class="row gil-item">
@@ -45,7 +45,7 @@
                 </span> 
               
               </div>
-              <span class="text-muted" style="font-style: italic"> el mas gil </span>
+              <span class="text-muted" style="font-style: italic"> {{'el mas gil'|neutrar:'app':'textInTable'}} </span>
             <div>
                 <i class="fa fa-edit btn mr-3" (click)="editar(gil)"></i>
                 <i class="fa fa-times text-danger btn" (click)="quitarGil(gil)"></i>

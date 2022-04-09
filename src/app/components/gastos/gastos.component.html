@@ -1,46 +1,60 @@
 <div>
-    <h3>Quien pago</h3>
-    <hr />
-    <p> Que no se te escape ningun 0 ni centavo, ahora que esta jodida la cosa y el bolsillo esta siendo brutalmente violado cuida tu platita y a exprimir cada centavo </p>
-    <form [formGroup]="gastoForma" (ngSubmit)="submitForm()">
-      <div class="form-inline mb-3">
-        <label class="mr-2" for="who">Este gil</label>
-        <select type="text" id="who" class="form-control form-control-sm mr-3"
+  <h3> 💸 Quien pago</h3>
+  <hr />
+  <p>
+    {{'Que no se te escape ningun 0 ni centavo, ahora que esta jodida la cosa y el
+    bolsillo esta siendo brutalmente golpeado cuida tu platita y a exprimir cada
+    centavo' | neutrar:'app':'pagoDescripcion'}}
+  </p>
+  <form [formGroup]="gastoForma" (ngSubmit)="submitForm()">
+    <div class="form-inline mb-3">
+      <label class="mr-2" for="who">{{'Este gil'| neutrar:'app':'labelWho'}}</label>
+      <select
+        type="text"
+        id="who"
+        class="form-control form-control-sm mr-3"
         formControlName="persona"
         [class.is-invalid]="PersonaInputInvalido"
-        >
-          <option value="">Nadie</option>
-          <option *ngFor="let gil of giles" [ngValue]="gil">{{gil | titlecase}}</option>
-        </select>
-  
-        <label class="mr-2" for="how-much">Gastó</label>
-        <input
+      >
+        <option value="">Nadie</option>
+        <option *ngFor="let gil of giles" [ngValue]="gil">
+          {{ gil | titlecase }}
+        </option>
+      </select>
+
+      <label class="mr-2" for="how-much">Gastó</label>
+      <input
         formControlName="cuanto"
-          type="tel"
-          id="how-much"
-          autocomplete="off"
-          class="form-control form-control-sm mr-3"
-          min="0"
-          mask="0*.00"
-          prefix="$"
+        type="tel"
+        id="how-much"
+        autocomplete="off"
+        class="form-control form-control-sm mr-3"
+        min="0"
+        mask="0*.00"
+        prefix="$"
         [class.is-invalid]="CuantoInputInvalido"
+      />
 
-        />
-  
-        <label class="mr-2" for="desc">En</label>
-        <input type="text" formControlName="descripcion" id="desc" class="form-control form-control-sm mr-3" placeholder="Que te importa?" />
-  
-      </div>
-      <div class="text-danger" *ngIf="CuantoInputInvalido || PersonaInputInvalido">
-        <p>No seas bobi y presta antencion</p>
-        <ul>
-            <li *ngIf="CuantoInputInvalido"> Nada es gratis pa!</li>
-            <li *ngIf="PersonaInputInvalido"> Alguien tiene que pagar gracioso!  </li>
-            <li *ngIf="CuantoNotEnough"> Monto minimo 5, maldita inflacion  </li>
-        </ul>
-
-      </div>
-      <button type="submit" class="btn btn-primary btn-sm">Agregar gasto</button>
-  
-    </form>
+      <label class="mr-2" for="desc">En</label>
+      <input
+        type="text"
+        formControlName="descripcion"
+        id="desc"
+        class="form-control form-control-sm mr-3"
+        placeholder="Que te importa?"
+      />
+    </div>
+    <div
+      class="text-danger"
+      *ngIf="CuantoInputInvalido || PersonaInputInvalido"
+    >
+      <p>{{'No seas bobi y presta antencion' | neutrar:'app':'errorGasto'}}</p>
+      <ul>
+        <li *ngIf="CuantoInputInvalido">{{'Nada es gratis pa!'|neutrar:'app':'noGratis'}}</li>
+        <li *ngIf="PersonaInputInvalido">Alguien tiene que pagar {{'gracioso!'|neutrar}} </li>
+        <li *ngIf="CuantoNotEnough">Monto minimo 5, maldita inflacion 😥</li>
+      </ul>
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm">Agregar gasto</button>
+  </form>
 </div>

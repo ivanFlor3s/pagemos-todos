@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GilesListService } from '../../services/giles-list.service';
 import { ToastrService } from 'ngx-toastr';
+import { NeutrarPipe } from '../../pipes/neutrar.pipe';
 
 @Component({
   selector: 'app-gastos',
   templateUrl: './gastos.component.html',
   styleUrls: ['./gastos.component.css'],
+  providers:[NeutrarPipe]
 })
 export class GastosComponent implements OnInit {
   gastoForma: FormGroup;
@@ -21,13 +23,13 @@ export class GastosComponent implements OnInit {
     return this.gastoForma.get('cuanto').invalid && this.gastoForma.get('cuanto').dirty 
   }
   get CuantoNotEnough(){
-    console.log(this.gastoForma.get('cuanto').errors)
     return !!this.gastoForma.get('cuanto').errors['min']
    
   }
 
   constructor(private fb: FormBuilder, private gilesService: GilesListService,
-    private toastrService: ToastrService) {
+    private toastrService: ToastrService,
+    private neutrar:NeutrarPipe) {
     this.iniciarFormulario();
     this.escucharGilesIntegrantes()
   }
@@ -61,7 +63,7 @@ export class GastosComponent implements OnInit {
     if(this.gastoForma.invalid) return;
     const {persona, cuanto, descripcion} = this.gastoForma.value
     this.gilesService.agregarleGastoA(persona,Number(cuanto),descripcion)
-    this.toastrService.info('Abrazo grando ' + persona ,'Le va a pagar Magosha!')
+    this.toastrService.info('🎉 '+ this.neutrar.transform('Abrazo grando','app','infoToastAgregar') + persona ,this.neutrar.transform('Le va a pagar Magosha!','app','graciasInfoToast'))
 
     this.gastoForma.reset()
   }

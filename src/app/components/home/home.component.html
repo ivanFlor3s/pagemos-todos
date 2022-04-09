@@ -1,7 +1,15 @@
 <div class="jumbotron">
-  <h1 class="display-4">Paga Gil</h1>
-  <p class="lead"> Hicieron varios gastos y en cada uno solo una persona pagaba y no saben como dividir los gastos? esta es su aplicacion para que todos paguen lo suyo </p>
-  <hr class="my-4">
-  <p>Desde agregar personas (giles), gastos hasta ver el detalle de los gastos y la division de pagos</p>
-  <a class="btn btn-primary btn-lg" (click)="irAplicacion()" role="button">A usar la aplicacion</a>
+  <h1 class="display-4"> {{'Paga Gil' | neutrar: 'home':'title'}} </h1>
+  <p class="lead">
+    Hicieron varios gastos y en cada uno solo una persona pagaba y no saben como
+    dividir los gastos? esta es su aplicacion para que todos paguen lo suyo
+  </p>
+  <hr class="my-4" />
+  <p>
+    Desde agregar personas ({{'giles' | neutrar: 'home':'amigosComoGiles'}}), gastos hasta ver el detalle de los gastos y
+    la division de pagos
+  </p>
+  <a class="btn btn-primary btn-lg" (click)="irAplicacion()" role="button"
+    >A usar la aplicacion</a
+  >
 </div>

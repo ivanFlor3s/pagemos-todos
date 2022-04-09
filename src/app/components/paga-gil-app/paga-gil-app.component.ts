@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppContextService } from '../../services/app-context.service';
 
 @Component({
   selector: 'app-paga-gil-app',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PagaGilAppComponent implements OnInit {
 
-  constructor() { }
+  constructor(public appContext: AppContextService) { }
 
   ngOnInit(): void {
   }

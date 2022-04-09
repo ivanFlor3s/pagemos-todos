@@ -15,6 +15,7 @@ import { GastosComponent } from './components/gastos/gastos.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { PagaGilAppComponent } from './components/paga-gil-app/paga-gil-app.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { NeutrarPipe } from './pipes/neutrar.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { FooterComponent } from './shared/footer/footer.component';
     AgregarGilComponent,
     GastosComponent,
     PagaGilAppComponent,
-    FooterComponent
+    FooterComponent,
+    NeutrarPipe
   ],
   imports: [
     BrowserModule,

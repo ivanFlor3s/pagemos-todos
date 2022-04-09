@@ -1,5 +1,5 @@
 <!-- disclaimer -->
-<div class="alert alert-warning" role="alert">
+<div class="alert alert-warning" role="alert"  *ngIf="!appContext.familyFriendly" >
   <strong><i class="fa fa-exclamation-triangle"></i> Disclaimer</strong> 
   El usuario puede llegar a ser insultado en caso de mal uso de la aplicacion (tambien en el buen uso), se recomienda discrecion
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">

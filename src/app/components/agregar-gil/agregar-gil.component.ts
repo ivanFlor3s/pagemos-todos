@@ -2,15 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { Gil } from 'src/app/model/gil';
 import { GilesListService } from '../../services/giles-list.service';
 import Swal from 'sweetalert2';
+import { NeutrarPipe } from '../../pipes/neutrar.pipe';
 
 const MINCHARSNAME = 3
 @Component({
   selector: 'app-agregar-gil',
   templateUrl: './agregar-gil.component.html',
-  styleUrls: ['./agregar-gil.component.css']
+  styleUrls: ['./agregar-gil.component.css'],
+  providers:[NeutrarPipe]
 })
 
 
@@ -33,7 +34,8 @@ export class AgregarGilComponent implements OnInit {
 
   constructor(private fb: FormBuilder, 
     private gilesService: GilesListService, 
-    private toastrService: ToastrService) { 
+    private toastrService: ToastrService,
+    private neutrar: NeutrarPipe) { 
     this.iniciarFormulario()
     this.escucharListaGiles()
   }
@@ -62,7 +64,7 @@ export class AgregarGilComponent implements OnInit {
     // console.log(this.nombreForma.value, this.giles)
 
     if(this.giles.map(x => x.toUpperCase().trim()).includes(this.NombreInput.value.toUpperCase().trim())){
-      this.toastrService.error(`${this.NombreInput.value} ya esta agregado fiera`,'Media pila!!')
+      this.toastrService.error(`${this.NombreInput.value} ya esta agregado ${this.neutrar.transform('fiera','','')}`,this.neutrar.transform('Media pila!!','',''))
       this.nombreForma.reset()
       return;
     }
@@ -82,8 +84,10 @@ export class AgregarGilComponent implements OnInit {
     const response = await this.pedirConfirmacion(gil)
     if(response.isConfirmed) {
       this.gilesService.QuitarGil(gil)
-  
-      this.toastrService.success(`A tu puta casa ${gil}`,'A casaaaa!!!!')
+      const [msg,title] = [`A tu puta casa `,'A casaaaa!!!!']
+      
+      this.toastrService.success(this.neutrar.transform(msg,'app','toastDeleteGilMsg') + gil,
+      this.neutrar.transform(title,'app','toastDeleteGilTitle') )
     }
 
   }
