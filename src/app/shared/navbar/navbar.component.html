@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand"
-    >Paga Gil <i class="fa fa-trademark" style="font-size: 0.8rem"></i>
+    >💰 Let's pay
   </a>
   <button
     class="navbar-toggler"
@@ -24,18 +24,22 @@
         ></a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['app']">
+        <a class="nav-link" [routerLink]="['app','friendly']">
           <i class="fa fa-wallet"></i> App <span class="sr-only"></span
         ></a>
       </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['about-us']">
-          <i class="fa fa-users"></i> Quienes somos?</a
+          <i class="fa fa-users"></i> About us</a
         >
       </li>
     </ul>
 
-    <span class="friendly"> Family Freindly </span>
-    <ui-switch (change)="cambiar()" [(ngModel)]="context.familyFriendly"></ui-switch>
+    <div *ngIf="showFamilyButton">
+
+      <span class="friendly"> Family Freindly </span>
+      <ui-switch (change)="cambiar()" [(ngModel)]="context.familyFriendly"></ui-switch>
+
+    </div>
   </div>
 </nav>

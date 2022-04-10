@@ -8,7 +8,7 @@ import { PagaGilAppComponent } from './components/paga-gil-app/paga-gil-app.comp
 
 const routes: Routes = [
   { path:'home', component: HomeComponent  },
-  { path:'app', component: PagaGilAppComponent  },
+  { path:'app/:secreto', component: PagaGilAppComponent  },
   { path:'about-us', component: AboutUsComponent  },
   { path:'**', pathMatch:'full', redirectTo: 'home'  }
 ];
