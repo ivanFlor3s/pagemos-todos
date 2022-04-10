@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   }
 
   irAplicacion(){
-    this.router.navigate(['app'])
+    this.router.navigate(['app','friendly'])
   }
 
 
