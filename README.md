@@ -1,27 +1,45 @@
-# PagaGil
+# Paguemos todos
+### Una aplicacion web para dividir gastos entre amigos
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.3.
+
+Paguemos todos es una aplicacion simple desarrollada en Angular en la que se pueden cargar personas, sus gastos y ver una forma equitativa de dividir esos gastos entre todos
+
+## Demo
+![demo-app](https://i.imgur.com/rB30Zv1.gif)
+
+## Features
+
+- Agregar personas al grupo
+- Editar nombre de personas agregadas
+- Eliminar personas del grupo 
+- Agregar Gastos
+- Tabla de gastos
+- Resumen de la division de gastos
+
+## Tech
+
+La aplicacion usa estos paquetes, librerias, frameworks para funcionar correctamente:
+- [Angular](https://angular.io/) The modern web
+developer's platform
+- [Ngx Toast](https://www.npmjs.com/package/ngx-toastr) Angular toast library
+- [SweetAlert](https://sweetalert2.github.io/) A BEAUTIFUL, RESPONSIVE, CUSTOMIZABLE, ACCESSIBLE (WAI-ARIA) REPLACEMENT FOR JAVASCRIPT'S POPUP BOXES
+- [Bootstrap 4](https://getbootstrap.com/docs/4.6/getting-started/introduction/) Build fast, responsive sites with Bootstrap
+- [Ngx Mask](https://www.npmjs.com/package/ngx-mask) Angular Plugin to make masks on form fields and html elements.
+- [TypeScript](https://www.typescriptlang.org/) TypeScript is JavaScript with syntax for types.
+
+## Install
+Clone repo and run `npm install` to download packages
 
 ## Development server
+Run this command for a dev server.
+```sh
+ng serve -o
+```
+Will open new page in `http://localhost:4200/` where you can see the app. 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## License
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Apache
