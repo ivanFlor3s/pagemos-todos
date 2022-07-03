@@ -38,19 +38,13 @@ export class AgregarGilComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder, 
-    private gilesService: GilesListService,
     private store: Store<any>, 
     private toastrService: ToastrService,
     private neutrar: NeutrarPipe) { 
     this.iniciarFormulario()
-    this.escucharListaGiles()
   }
 
-  escucharListaGiles() {
-    this.gilesListSubscription = this.gilesService.currentList.subscribe( list => {
-     this.giles = list.map(x => x.nombre) 
-    })
-  }
+ 
   
   ngOnInit(): void {
     this.giles$ = this.store.select(selectGilesList)
