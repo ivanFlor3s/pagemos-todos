@@ -21,13 +21,13 @@ import { Action, ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { gilesReducer } from './redux/gastos.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
-import _ from 'lodash';
+import { merge } from 'lodash-es';
 
 export function saveInLocalStorage<S, A extends Action = Action>(reducer: ActionReducer<S, A>){
   return function(state: S, action: A): S {
     const nextState = reducer(state, action);
     const savedState = JSON.parse(localStorage.getItem('__storage__')) || {};
-    _.merge(nextState, savedState);
+    merge(nextState, savedState);
     localStorage.setItem('__storage__', JSON.stringify(nextState))
     return nextState;
   };
