@@ -11,7 +11,7 @@ export class AppComponent {
   title = 'paga-gil';
 
   constructor(private store: Store<any>){
-    // this.store.dispatch(cargarGilesFromStorage())
+    this.store.dispatch(cargarGilesFromStorage())
   }
 
 

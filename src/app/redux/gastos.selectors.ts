@@ -47,9 +47,8 @@ export const selectGetTotales = createSelector(
 export const selectGetTotal = createSelector(
     selectGetTotales,
     (gastosTotales)=>  {
-        console.log(gastosTotales)
         const total= gastosTotales.map(x=>Number(x.cuanto)).reduce( (a,b)=> a + b, 0)
-        console.log('total', total)
         return total
     }
 )
+

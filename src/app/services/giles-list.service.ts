@@ -23,9 +23,7 @@ export class GilesListService {
   }
 
   QuitarGil(nombre: string){
-    console.log('quito a este ', nombre)
     const listaSinGil = this.currentGilesListSubject.value.filter(x => x.nombre != nombre)
-    console.log('despues de quitar',listaSinGil)
     this.currentGilesListSubject.next(listaSinGil)
   }
 
@@ -67,7 +65,6 @@ export class GilesListService {
   getDataFormStorage(){
     const data = localStorage.getItem(GILESKEY)
     if(data){
-      console.log(JSON.parse(data) as Gil[])
       this.currentGilesListSubject.next(JSON.parse(data) as Gil[])
     }
   }

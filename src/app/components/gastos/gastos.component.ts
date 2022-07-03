@@ -65,14 +65,12 @@ export class GastosComponent implements OnInit {
   }
 
   submitForm(){
-    console.log(this.gastoForma.value)
 
     Object.keys(this.gastoForma.controls).map( control => {
       this.gastoForma.controls[control].markAsDirty()
     })
 
     if(this.gastoForma.invalid) {
-      console.log('Es invalide'  )
       return ;
     };
     const {persona, cuanto, descripcion} = this.gastoForma.value

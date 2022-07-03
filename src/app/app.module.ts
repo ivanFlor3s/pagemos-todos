@@ -33,7 +33,7 @@ export function saveInLocalStorage<S, A extends Action = Action>(reducer: Action
   };
 }
 
-export const metaReducers: MetaReducer<any>[]=[saveInLocalStorage]
+export const metaReducers: MetaReducer<any>[]=[]
 
 @NgModule({
   declarations: [
@@ -66,7 +66,7 @@ export const metaReducers: MetaReducer<any>[]=[saveInLocalStorage]
     }),
     BrowserAnimationsModule,
     NgxMaskModule.forRoot(),
-    StoreModule.forRoot({giles: gilesReducer},{metaReducers}),
+    StoreModule.forRoot({giles: gilesReducer}),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: !environment.production, // Restrict extension to log-only mode
