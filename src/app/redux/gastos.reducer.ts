@@ -66,7 +66,6 @@ export const gilesReducer = createReducer(
   on(cargarGilesFromStorage, (state)=>{
     const storage = localStorage.getItem('__storage__')
     if(storage){
-      console.log('Recupero de storage', storage)
       const aux = JSON.parse(storage) as IGil[]
       return [...aux]
     } else return [...state]
