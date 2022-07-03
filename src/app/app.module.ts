@@ -17,6 +17,7 @@ import { PagaGilAppComponent } from './components/paga-gil-app/paga-gil-app.comp
 import { FooterComponent } from './shared/footer/footer.component';
 import { NeutrarPipe } from './pipes/neutrar.pipe';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { UiSwitchModule } from 'ngx-ui-switch';
     }),
     BrowserAnimationsModule,
     NgxMaskModule.forRoot(),
+    StoreModule.forRoot({}, {}),
   ],
   providers: [],
   bootstrap: [AppComponent],
