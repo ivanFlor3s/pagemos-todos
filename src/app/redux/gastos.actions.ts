@@ -2,11 +2,11 @@ import { createAction, props } from "@ngrx/store";
 import { Gasto } from "../model/gasto";
 import { Gil } from '../model/gil';
 
-export const agregarGil = createAction('[Gil] Agrego',
-    props<{ gil: Gil}>()
+export const agregarGil = createAction('[Gil] Agrego nuevo',
+    props<{ nombreGil:string}>()
     )
 
-export const cambiarNombreGil = createAction('[Gil] Elimino', 
+export const cambiarNombreGil = createAction('[Gil] Cambio nombre', 
 props<{nombreOld: string, nombreNuevo: string}>()
 )
 

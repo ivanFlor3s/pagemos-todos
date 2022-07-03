@@ -34,14 +34,14 @@
   </div>
   <div class="col-sm-6 col-12">
     <ul class="list-group">
-      <li *ngIf="giles.length == 0" class="list-group-item">
+      <li *ngIf="(giles$ | async).length == 0" class="list-group-item">
         <span class="text-muted">No hay nadie cargado{{', intenta agregando giles'|neutrar}}</span>
       </li>
-      <li *ngFor="let gil of giles" class="list-group-item">
+      <li *ngFor="let gil of giles$ | async" class="list-group-item">
           <div class="row gil-item">
               <div>
                 <i class="fa fa-user"></i> <span>
-                    {{ gil | titlecase }}
+                    {{ gil.nombre | titlecase }}
                 </span> 
               
               </div>

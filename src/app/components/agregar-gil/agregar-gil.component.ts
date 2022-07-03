@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { GilesListService } from '../../services/giles-list.service';
 import Swal from 'sweetalert2';
 import { NeutrarPipe } from '../../pipes/neutrar.pipe';
+import { Store } from '@ngrx/store';
+import { agregarGil, cambiarNombreGil, eliminarGil } from '../../redux/gastos.actions';
+import { selectGilesList } from '../../redux/gastos.selectors';
+import { IGil } from 'src/app/model/gil';
 
 const MINCHARSNAME = 3
 @Component({
@@ -21,8 +25,8 @@ export class AgregarGilComponent implements OnInit {
   nombreForma: FormGroup
   giles: string[] = []
   gilesListSubscription: Subscription
+  giles$:Observable<IGil[]>
 
-  minCaracteresNombre = MINCHARSNAME
 
   get NombreInput(){
     return this.nombreForma.get('nombre') as FormControl
@@ -32,8 +36,10 @@ export class AgregarGilComponent implements OnInit {
     return this.NombreInput.invalid && this.NombreInput.dirty 
   }
 
+
   constructor(private fb: FormBuilder, 
-    private gilesService: GilesListService, 
+    private gilesService: GilesListService,
+    private store: Store<any>, 
     private toastrService: ToastrService,
     private neutrar: NeutrarPipe) { 
     this.iniciarFormulario()
@@ -47,6 +53,8 @@ export class AgregarGilComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.giles$ = this.store.select(selectGilesList)
+    // this.store.select(selectGilesList).subscribe(res=>console.log(res))
   }
   ngOnDestroy(): void {
    this.gilesListSubscription.unsubscribe()
@@ -70,23 +78,23 @@ export class AgregarGilComponent implements OnInit {
     }
 
     if(this.nombreForma.valid){
-      // this.giles.push(this.NombreInput.value)
-      this.gilesService.AgregarGil(this.NombreInput.value)
+      // this.gilesService.AgregarGil(this.NombreInput.value)
+      this.store.dispatch(agregarGil({nombreGil: this.NombreInput.value}))
       this.nombreForma.reset()
     }
 
     
   }
 
-  async quitarGil(gil: string){
-    // confirmar quitar usuario
+  async quitarGil(gil: IGil){
 
-    const response = await this.pedirConfirmacion(gil)
+    const response = await this.pedirConfirmacion(gil.nombre)
     if(response.isConfirmed) {
-      this.gilesService.QuitarGil(gil)
+      // this.gilesService.QuitarGil(gil)
+      this.store.dispatch(eliminarGil({nombre: gil.nombre}))
       const [msg,title] = [`A tu puta casa `,'A casaaaa!!!!']
       
-      this.toastrService.success(this.neutrar.transform(msg,'app','toastDeleteGilMsg') + gil,
+      this.toastrService.success(this.neutrar.transform(msg,'app','toastDeleteGilMsg') + gil.nombre,
       this.neutrar.transform(title,'app','toastDeleteGilTitle') )
     }
 
@@ -102,12 +110,13 @@ export class AgregarGilComponent implements OnInit {
     })
   }
 
-  async editar(gil:string){
+  async editar(gil:IGil){
     const respuesta = await this.preguntarPorCambio()
     // console.log('nuevo nombre', respuesta.value)
     if (gil == respuesta.value || !respuesta.value) return;
 
-    this.gilesService.cambiarNombre(gil, respuesta.value)
+    // this.gilesService.cambiarNombre(gil, respuesta.value)
+    this.store.dispatch(cambiarNombreGil({nombreNuevo:respuesta.value,nombreOld:gil.nombre}))
     // this.toastrService.error(' Por que no te tocas el culo?','Eh!! Eso todavia no hace nada')
   }
 
