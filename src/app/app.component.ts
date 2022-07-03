@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { cargarGilesFromStorage } from './redux/gastos.actions';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'paga-gil';
+
+  constructor(private store: Store<any>){
+    // this.store.dispatch(cargarGilesFromStorage())
+  }
+
+
 }

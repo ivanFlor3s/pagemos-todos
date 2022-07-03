@@ -17,10 +17,23 @@ import { PagaGilAppComponent } from './components/paga-gil-app/paga-gil-app.comp
 import { FooterComponent } from './shared/footer/footer.component';
 import { NeutrarPipe } from './pipes/neutrar.pipe';
 import { UiSwitchModule } from 'ngx-ui-switch';
-import { StoreModule } from '@ngrx/store';
+import { Action, ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { gilesReducer } from './redux/gastos.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
+import _ from 'lodash';
+
+export function saveInLocalStorage<S, A extends Action = Action>(reducer: ActionReducer<S, A>){
+  return function(state: S, action: A): S {
+    const nextState = reducer(state, action);
+    const savedState = JSON.parse(localStorage.getItem('__storage__')) || {};
+    _.merge(nextState, savedState);
+    localStorage.setItem('__storage__', JSON.stringify(nextState))
+    return nextState;
+  };
+}
+
+export const metaReducers: MetaReducer<any>[]=[saveInLocalStorage]
 
 @NgModule({
   declarations: [
@@ -53,7 +66,7 @@ import { environment } from 'src/environments/environment';
     }),
     BrowserAnimationsModule,
     NgxMaskModule.forRoot(),
-    StoreModule.forRoot({giles: gilesReducer}),
+    StoreModule.forRoot({giles: gilesReducer},{metaReducers}),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: !environment.production, // Restrict extension to log-only mode

@@ -1,6 +1,5 @@
 import { createAction, props } from "@ngrx/store";
 import { Gasto } from "../model/gasto";
-import { Gil } from '../model/gil';
 import { GastoItem } from '../model/GastoItem';
 
 export const agregarGil = createAction('[Gil] Agrego nuevo',
