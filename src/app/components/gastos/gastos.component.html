@@ -17,8 +17,8 @@
         [class.is-invalid]="PersonaInputInvalido"
       >
         <option value="">Nadie</option>
-        <option *ngFor="let gil of giles" [ngValue]="gil">
-          {{ gil | titlecase }}
+        <option *ngFor="let gil of giles$ | async" [ngValue]="gil.nombre">
+          {{ gil.nombre | titlecase }}
         </option>
       </select>
 
@@ -58,3 +58,5 @@
     <button type="submit" class="btn btn-primary btn-sm">Agregar gasto</button>
   </form>
 </div>
+
+<pre>{{gastoForma.value | json}}</pre>

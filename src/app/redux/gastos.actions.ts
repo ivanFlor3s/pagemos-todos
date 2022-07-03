@@ -15,7 +15,7 @@ props<{nombre: string}>()
 )
 
 export const agregarGasto = createAction('[Gasto] Agregar',
-    props<{gasto: Gasto}>()
+    props<{nombre:string,gasto: Gasto}>()
     )
 
 export const quitarGasto = createAction('[Gasto] Crear',

@@ -8,7 +8,7 @@ export const diccionario = {
         agregarDesc: 'Pone nombre a tus amigos que se tienen que tener en cuenta para la division de gastos, que no se te olvide nadie 😊',
         labelNombre: 'Nombre o apodo',
         textInTable: 'Un capo',
-        pagoDescripcion: 'No te olvides de cargar ni un gasto, recorda lo que decia homero: ✊ Exprimir cada centavo!',
+        pagoDescripcion: 'No te olvides de cargar ni un gasto, recorda las sabias palabras de un hombre calvo y amarillo: ✊ Exprimir cada centavo!',
         errorNombreForm: 'Ups! Hubo un error con el nombre, recorda que el nombre debe:',
         labelWho:'Nuestro amigo',
         noGratis:'Un gasto no puede tener monto 0',

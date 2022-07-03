@@ -3,6 +3,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GilesListService } from '../../services/giles-list.service';
 import { ToastrService } from 'ngx-toastr';
 import { NeutrarPipe } from '../../pipes/neutrar.pipe';
+import { IGil } from '../../model/gil';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectGilesList } from '../../redux/gastos.selectors';
+import { agregarGasto } from '../../redux/gastos.actions';
+import { Gasto } from '../../model/gasto';
 
 @Component({
   selector: 'app-gastos',
@@ -12,6 +18,7 @@ import { NeutrarPipe } from '../../pipes/neutrar.pipe';
 })
 export class GastosComponent implements OnInit {
   gastoForma: FormGroup;
+  giles$: Observable<IGil[]>
 
   giles: string[] = []
 
@@ -29,12 +36,16 @@ export class GastosComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private gilesService: GilesListService,
     private toastrService: ToastrService,
+    private store:Store<any>,
     private neutrar:NeutrarPipe) {
     this.iniciarFormulario();
-    this.escucharGilesIntegrantes()
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    this.giles$ = this.store.select(selectGilesList)
+
+  }
   iniciarFormulario() {
     this.gastoForma = this.fb.group({
       persona: ['', [Validators.required]],
@@ -54,15 +65,22 @@ export class GastosComponent implements OnInit {
   }
 
   submitForm(){
-    console.log(this.gastoForma)
+    console.log(this.gastoForma.value)
 
     Object.keys(this.gastoForma.controls).map( control => {
       this.gastoForma.controls[control].markAsDirty()
     })
 
-    if(this.gastoForma.invalid) return;
+    if(this.gastoForma.invalid) {
+      console.log('Es invalide'  )
+      return ;
+    };
     const {persona, cuanto, descripcion} = this.gastoForma.value
-    this.gilesService.agregarleGastoA(persona,Number(cuanto),descripcion)
+    // this.gilesService.agregarleGastoA(persona,Number(cuanto),descripcion)
+    const gasto: Gasto = {
+      cuanto, descripcion
+    }
+    this.store.dispatch(agregarGasto({nombre:persona, gasto}))
     this.toastrService.info('🎉 '+ this.neutrar.transform('Abrazo grando','app','infoToastAgregar') + persona ,this.neutrar.transform('Le va a pagar Magosha!','app','graciasInfoToast'))
 
     this.gastoForma.reset()

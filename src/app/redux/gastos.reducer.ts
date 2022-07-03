@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import Swal from 'sweetalert2';
 import { Gil, IGil } from '../model/gil';
-import { agregarGil, cambiarNombreGil, eliminarGil } from './gastos.actions';
+import { agregarGil, cambiarNombreGil, eliminarGil, agregarGasto } from './gastos.actions';
 
 export const initialState: IGil[] = [];
 export const gilesReducer = createReducer(
@@ -20,7 +20,10 @@ export const gilesReducer = createReducer(
   }),
   on(eliminarGil, (state,{nombre})=>{
     return [...state.filter(g => g.nombre !== nombre)]
-  })
+  }),
+  on(agregarGasto, (state, { nombre,gasto})=>{
+    return [...state.map(x=> x.nombre==nombre ? {...x,gastos: [...x.gastos,gasto] }:x )]
+  } )
 
 );
 
@@ -30,7 +33,6 @@ const validarNombreExistente = (gilesState:IGil[],nombre:string)=>{
     if(existe){
         Swal.fire('No se pudo agregar', 'Los nombres no se pueden repetir', 'error')
     }
-
     return existe
     
 }
