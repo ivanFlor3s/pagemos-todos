@@ -6,8 +6,9 @@ import { Observable, Subscription } from 'rxjs';
 import { Gil, IGil } from 'src/app/model/gil';
 import { GastoItem } from '../../model/GastoItem';
 import { Store } from '@ngrx/store';
-import { selectGetGastos } from '../../redux/gastos.selectors';
+import { selectGetGastos, selectGetTotal, selectGetTotales } from '../../redux/gastos.selectors';
 import { quitarGasto } from 'src/app/redux/gastos.actions';
+import { GastoTotal } from 'src/app/model/gasto';
 
 @Component({
   selector: 'app-giles-table',
@@ -16,44 +17,33 @@ import { quitarGasto } from 'src/app/redux/gastos.actions';
 })
 export class GilesTableComponent implements OnInit {
 
-  @Input() gilesList: IGil[]
+  @Input() gilesList: IGil[] = []
 
   gastos$: Observable<GastoItem[]>
-  totalGasto: number = 0
+  gastosTotal$:  Observable<number>
 
-  totalesList: { nombre: string, cuanto: number }[] = []
+  gastosTotales$: Observable<GastoTotal[]>
 
-  get GastoDividido(){
-    return this.totalGasto / this.totalesList.length
-  }
+
 
   constructor(private store: Store<any>) {
    }
 
   ngOnInit(): void {
     this.gastos$ = this.store.select(selectGetGastos)
+    this.gastosTotales$ = this.store.select(selectGetTotales)
+    this.gastosTotal$ = this.store.select(selectGetTotal)
   }
 
 
-  calcularPagarles(){
-    this.totalGasto = 0
-    this.totalesList = []
-    this.gilesList.forEach( gil => {
-      const item = {
-        nombre: gil.nombre,
-        cuanto: gil.gastos.map( x => x.cuanto).reduce( (a,b)=> a + b, 0)
-      }
-      this.totalesList.push(item)
-      this.totalGasto += item.cuanto
-    })
-  }
+  
 
   quitarGasto(gasto: GastoItem){
     this.store.dispatch(quitarGasto({gasto}))
   }
 
-  balance(item:any){
-    return item.cuanto - this.totalGasto / this.totalesList.length
+  balanceMayoraCero(item:any, total: number){
+    return ((item.cuanto - total) / this.gilesList.length) > 0
   }
 
 

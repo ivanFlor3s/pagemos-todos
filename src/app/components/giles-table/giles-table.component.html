@@ -16,7 +16,7 @@
           <td>{{ gasto.nombre | titlecase}}</td>
           <td>{{ gasto.cuanto | currency }}</td>
           <td>{{ gasto.descripcion }}</td>
-          <td> <i class="fa fa-eraser" style="cursor: pointer;" (click)="quitarGasto(gasto)"></i>  </td>
+          <td class="text-primary"> <i class="fa fa-eraser" style="cursor: pointer;" (click)="quitarGasto(gasto)"></i>  </td>
         </tr>
       </tbody>
     </table>
@@ -24,42 +24,41 @@
   <div class="col-sm-6">
     <h3>Cuanto pagaron</h3>
     <ul>
-      <li *ngFor="let item of totalesList">
+      <li *ngFor="let item of gastosTotales$ | async">
         {{ item.nombre | titlecase }} pagó {{ item.cuanto | currency }}
       </li>
     </ul>
     <h3>
-      <span class="badge badge-primary">Total {{ totalGasto | currency }}</span>
+      <span class="badge badge-primary">Total {{ gastosTotal$ | async | currency }}</span>
     </h3>
 
     <h4>
       <span class="badge badge-secondary">
-        Dividido entre {{ totalesList.length }} =
-        {{ GastoDividido | currency }}
+        Dividido entre {{ gilesList.length }} =
+        {{ (gastosTotal$ | async) / (gilesList.length) | currency }}
       </span>
     
     </h4>
 
     <h3>Queda asi la cosa</h3>
     <ul class="list-group">
-      <li class="list-group-item" *ngFor="let item of totalesList">
+      <li class="list-group-item" *ngFor="let item of gastosTotales$ | async">
         <div class="row" style="justify-content: space-between;">
           <div>
-            
             {{ item.nombre | titlecase}}
           </div>
           <div class="badge" [ngClass]="{
-            ' badge-success': balance(item) >= 0,
-            ' badge-danger': balance(item) < 0
+            ' badge-success': balanceMayoraCero(item,  gastosTotal | async),
+            ' badge-danger': !balanceMayoraCero(item,  gastosTotal | async) 
           }">
             <i class="fa" [ngClass]="{
-              ' fa-arrow-up': balance(item) >= 0,
-              ' fa-arrow-down': balance(item) < 0
+              ' fa-arrow-up': balanceMayoraCero(item, gastosTotal | async) ,
+              ' fa-arrow-down': !balanceMayoraCero(item,  gastosTotal | async)
             }" >
     
             </i>
             <span>
-              {{ balance(item) | currency }}
+              {{ item.cuanto -((gastosTotal$ | async) / (gilesList.length) ) | currency }}
             </span>
           </div>
          
