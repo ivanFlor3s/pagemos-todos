@@ -18,6 +18,9 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NeutrarPipe } from './pipes/neutrar.pipe';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { StoreModule } from '@ngrx/store';
+import { gilesReducer } from './redux/gastos.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,11 @@ import { StoreModule } from '@ngrx/store';
     }),
     BrowserAnimationsModule,
     NgxMaskModule.forRoot(),
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({giles: gilesReducer}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: !environment.production, // Restrict extension to log-only mode
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
