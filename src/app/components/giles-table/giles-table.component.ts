@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { GilesListService } from '../../services/giles-list.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 //Modelos
-import { Gil } from 'src/app/model/gil';
+import { Gil, IGil } from 'src/app/model/gil';
 import { GastoItem } from '../../model/GastoItem';
+import { Store } from '@ngrx/store';
+import { selectGetGastos } from '../../redux/gastos.selectors';
+import { quitarGasto } from 'src/app/redux/gastos.actions';
 
 @Component({
   selector: 'app-giles-table',
@@ -13,9 +16,9 @@ import { GastoItem } from '../../model/GastoItem';
 })
 export class GilesTableComponent implements OnInit {
 
-  gilesSub: Subscription
-  gilesList: Gil[] = []
-  gastos: GastoItem[] = []
+  @Input() gilesList: IGil[]
+
+  gastos$: Observable<GastoItem[]>
   totalGasto: number = 0
 
   totalesList: { nombre: string, cuanto: number }[] = []
@@ -24,42 +27,18 @@ export class GilesTableComponent implements OnInit {
     return this.totalGasto / this.totalesList.length
   }
 
-  constructor(public gilesService: GilesListService) {
-    this.escucharGiles()
+  constructor(private store: Store<any>) {
    }
 
   ngOnInit(): void {
+    this.gastos$ = this.store.select(selectGetGastos)
   }
 
 
-
-  escucharGiles(){
-    this.gilesSub = this.gilesService.currentList.subscribe( gilesList => {
-      this.gilesList = gilesList
-      if(gilesList.length >= 0){
-        let list: GastoItem[] = []
-        
-        gilesList.forEach( gil => {
-          gil.gastos.forEach( gasto => {
-            const item: GastoItem = {
-              cuanto: gasto.cuanto,
-              descripcion: gasto.descripcion,
-              nombre: gil.nombre
-            }
-            list.push( item )
-          }) 
-        })
-
-        this.gastos = list
-        this.calcularPagarles(gilesList)
-      }
-    })
-  }
-
-  calcularPagarles(gilesList: Gil[]){
+  calcularPagarles(){
     this.totalGasto = 0
     this.totalesList = []
-    gilesList.forEach( gil => {
+    this.gilesList.forEach( gil => {
       const item = {
         nombre: gil.nombre,
         cuanto: gil.gastos.map( x => x.cuanto).reduce( (a,b)=> a + b, 0)
@@ -67,6 +46,10 @@ export class GilesTableComponent implements OnInit {
       this.totalesList.push(item)
       this.totalGasto += item.cuanto
     })
+  }
+
+  quitarGasto(gasto: GastoItem){
+    this.store.dispatch(quitarGasto({gasto}))
   }
 
   balance(item:any){

@@ -1,5 +1,5 @@
 export class Gasto {
     cuanto: number
     descripcion?: string
-    ts?: Date
+    ts?: number
 }

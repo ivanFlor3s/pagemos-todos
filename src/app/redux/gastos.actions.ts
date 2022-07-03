@@ -1,6 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { Gasto } from "../model/gasto";
 import { Gil } from '../model/gil';
+import { GastoItem } from '../model/GastoItem';
 
 export const agregarGil = createAction('[Gil] Agrego nuevo',
     props<{ nombreGil:string}>()
@@ -19,7 +20,7 @@ export const agregarGasto = createAction('[Gasto] Agregar',
     )
 
 export const quitarGasto = createAction('[Gasto] Crear',
-props<{gasto: Gasto}>()
+props<{gasto: GastoItem}>()
 )
 
 export const cargarGilesFromStorage = createAction('[GIL] Load giles')

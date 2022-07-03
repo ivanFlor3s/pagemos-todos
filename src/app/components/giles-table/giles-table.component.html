@@ -1,4 +1,4 @@
-<div class="row" *ngIf="gastos.length > 0">
+<div class="row" *ngIf="(gastos$ |async).length > 0">
   <div class="col-sm-6">
     <table class="table">
       <thead class="thead-dark">
@@ -7,14 +7,16 @@
           <th scope="col">Humano</th>
           <th scope="col">Gasto</th>
           <th scope="col">En...</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let gasto of gastos; let i = index">
+        <tr *ngFor="let gasto of gastos$ | async; let i = index">
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ gasto.nombre | titlecase}}</td>
           <td>{{ gasto.cuanto | currency }}</td>
           <td>{{ gasto.descripcion }}</td>
+          <td> <i class="fa fa-eraser" style="cursor: pointer;" (click)="quitarGasto(gasto)"></i>  </td>
         </tr>
       </tbody>
     </table>

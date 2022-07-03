@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import Swal from 'sweetalert2';
 import { Gil, IGil } from '../model/gil';
-import { agregarGil, cambiarNombreGil, eliminarGil, agregarGasto } from './gastos.actions';
+import { agregarGil, cambiarNombreGil, eliminarGil, agregarGasto, quitarGasto } from './gastos.actions';
 
 export const initialState: IGil[] = [];
 export const gilesReducer = createReducer(
@@ -22,7 +22,10 @@ export const gilesReducer = createReducer(
     return [...state.filter(g => g.nombre !== nombre)]
   }),
   on(agregarGasto, (state, { nombre,gasto})=>{
-    return [...state.map(x=> x.nombre==nombre ? {...x,gastos: [...x.gastos,gasto] }:x )]
+    return [...state.map(x=> x.nombre==nombre ? {...x,gastos: [...x.gastos,{...gasto,ts:new Date().getTime()}] }:x )]
+  } ),
+  on( quitarGasto, (state, {gasto})=>{
+    return [...state.map(x => x.nombre==gasto.nombre ? {...x,gastos: [...x.gastos.filter(g => g.ts!== gasto.ts)] }:x )]
   } )
 
 );

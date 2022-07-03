@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { AppContextService } from '../../services/app-context.service';
+import { Observable } from 'rxjs';
+import { IGil } from 'src/app/model/gil';
+import { selectGilesList } from '../../redux/gastos.selectors';
 
 @Component({
   selector: 'app-paga-gil-app',
@@ -8,9 +12,12 @@ import { AppContextService } from '../../services/app-context.service';
 })
 export class PagaGilAppComponent implements OnInit {
 
-  constructor(public appContext: AppContextService) { }
+  giles$: Observable<IGil[]>
+
+  constructor(public appContext: AppContextService, private store: Store<any> ) { }
 
   ngOnInit(): void {
+    this.giles$ = this.store.select(selectGilesList)
   }
 
 }
